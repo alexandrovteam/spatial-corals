@@ -1,5 +1,22 @@
 clear all
 
+%
+% This script performs the Ripley's K and Kolmogorov-Smirnov spatial statistical
+% analysis on the 3D models of coral colonies annotated with the GA lesions. 
+% 
+% A model should be provided as an .stl file, e.g. GA_Colony_clipped_4279.stl. 
+% 
+% The annotations should be provided as a .xlsx file, e.g. GA_coordinates_colony_4279.xlsx,
+% containing four columns (name of the spot, x, y, z). The first row is the column titles.
+% The rows corresponding to lesion spots should have the name starting with 'point'. 
+%
+% This script requires our implementation of Ripley's K function.
+%
+% Theodore Alexandrov, EMBL (github theodev)
+% Ekaterina Ovchinnikova, KIT/EMBL (github eovchinn)
+% 2014-2016
+% 
+
 %------------------ PARAMETERS ------------------
 
 % the folder with stlread.m
