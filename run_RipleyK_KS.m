@@ -45,25 +45,24 @@ RipleyK_edgecorr=0;
 % load the 3D model
 model = stlread([models_folder '/GA_Colony_' colonyID '.stl']);
 
-% 
+% where the coordinates of lesions will be stored in CSV format after they are loaded from .xlsx
 fname_coordsascii=[models_folder '/GA_' colonyID '--lesions_nvcoords.txt'];
-% fname_coordsascii='/Users/theodore/sci/projects/3D_coral-John/models/GA_6085--lesions_nvcoords.txt';
 
 % number of vertices
 Nv=size(model.vertices,1); 
 
 
-%%
+
 fprintf('*** Starting processing colony %s... ***\n', colonyID)
 
-%% read coordinates of lesion spots
+% read coordinates of lesion spots
 [xlsNUM,xlsTXT] = xlsread([models_folder '/GA_coordinates_colony_' colonyID '.xlsx']);
 
 spots_labels=xlsTXT(2:end,1);
 spots_coords=xlsNUM(1:end,1:3);
 Nspots=length(spots_labels);
 
-%% find lesions spots among all spots (that also include markers and model corners)
+% find lesions spots among all spots (that also include markers and model corners)
 lesion_spots_ind=[];
 for i=1:size(xlsTXT,1)
     s=xlsTXT{i,1};
@@ -76,14 +75,14 @@ Nlesions=length(lesion_spots_ind);
 lesions_coords=spots_coords(lesion_spots_ind,:);
 lesions_labels=spots_labels(lesion_spots_ind);
 
-%% for each lesion, find nearest vertex
+% for each lesion, find nearest vertex
 lesions_nvcoords=zeros(Nlesions,3);
 for i=1:Nlesions
     nearestv_ind=dsearchn(model.vertices,lesions_coords(i,:));
     lesions_nvcoords(i,:)=model.vertices(nearestv_ind,:);
 end
 
-%% save the coords of the lesions into an ascii file
+% save the coords of the lesions into a CSV .txt file
 fid=fopen(fname_coordsascii,'w');
 for i=1:size(lesions_nvcoords)
     fprintf(fid, '%.2f,%.2f,%.2f\n', lesions_nvcoords(i,1), lesions_nvcoords(i,2), lesions_nvcoords(i,3));
@@ -103,7 +102,7 @@ vertices_inhull=true(size(model.vertices,1),1);
 inhull_vind=(1:size(model.vertices,1))';
 Nv_insidehull=length(inhull_vind); % number of vertices inside the hull
 
-%% visualisation of x-y of the lesion spots and the convex hull
+% visualisation of x-y of the lesion spots and the convex hull
 figure;
 scatter(lesions_coords(:,1),lesions_coords(:,2)); 
 title('X-y coordinates of the lesion spots')
@@ -248,7 +247,7 @@ uniform_vind=uniform_vind(1:Nlesions);
 uniform_vcoords=model_lesionsarea.vertices(inhull_vind(uniform_vind),:);
 rK_uniform=ripleyK(uniform_vcoords(:,1:2),hvals,boundbox, RipleyK_edgecorr);
 
-%% statistics of difference between Ripley's K of random configurations and the lesion spots
+% statistics of difference between Ripley's K of random configurations and the lesion spots
 rK_quantlow=quantile(rK_vals,  0.0,  1);
 rK_quanthigh=quantile(rK_vals,  1.0,  1);
 
