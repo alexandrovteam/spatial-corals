@@ -1,5 +1,8 @@
 # Spatial statistical analysis of Growth Anomaly lesions on coral colonies
 
+## Contact us
+Please feel free to contact us or submit a question / request / bug report through github but clicking at this [link](https://github.com/alexandrovteam/spatial-corals/issues/new)
+
 ## How to reproduce the results of the study?
 
 In order to reproduce the results from the study, one needs the Matlab software installed. This is an expensive software but can be provided to you through your University/institute.
