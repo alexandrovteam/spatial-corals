@@ -12,7 +12,7 @@ In order to reproduce the results from the study, one needs the Matlab software 
 1. Start Matlab
 2. Go to the FOLDER with the study files (where the file run_RipleyK_KS.m) is located, and evoke the scripts
 
-     cd FOLDER
+     ```cd FOLDER
      run_RipleyK_KS
-     run_MoranI
-
+     run_MoranI'
+     ```
